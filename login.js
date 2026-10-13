@@ -7,7 +7,9 @@
 (function () {
 'use strict';
 const SK = 'sh_session', GK = 'sh_guest', MK = 'sh_meta_';
-const cfg = () => window.firebaseConfig || {};
+// Config chaguo-msingi (mradi sadegpt-f79d7). config.js ikiwepo, inatangulia. API key ya Firebase si siri; Rules za Firestore ndizo zinazolinda data.
+const DEF_CFG = { apiKey: "AIzaSyDCKHDp1VpDTRr4-HGqgE1OFkEwWIDZyqI", authDomain: "sadegpt-f79d7.firebaseapp.com", projectId: "sadegpt-f79d7", storageBucket: "sadegpt-f79d7.firebasestorage.app", messagingSenderId: "474328809093", appId: "1:474328809093:web:f8bde3022a5462499fb3ec", measurementId: "G-BR71PVS79N" };
+const cfg = () => (window.firebaseConfig && window.firebaseConfig.apiKey) ? window.firebaseConfig : DEF_CFG;
 const ready = () => !!(cfg().apiKey && cfg().projectId);
 const jget = k => { try { return JSON.parse(localStorage.getItem(k) || 'null') } catch (e) { return null } };
 const jset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch (e) {} };
@@ -144,7 +146,7 @@ function draw() {
     '<p id=lgerr class=lge></p>' +
     '<button id=lggo class=lgb onclick="' + (up ? 'LG.up()' : 'LG.in()') + '">' + (up ? 'Fungua akaunti' : 'Ingia') + '</button>' +
     (up ? '' : '<button class=lgl onclick="LG.rs()">Umesahau nenosiri?</button>')
-    : '<p class=lge>Huduma ya akaunti haijawekwa kwenye programu hii (config.js). Endelea bila akaunti.</p>';
+    : '<p class=lge>Huduma ya akaunti haijawekwa kwenye programu hii. Endelea bila akaunti.</p>';
   o.innerHTML = '<div id=lgc><div style="display:flex;gap:12px;align-items:center"><img src="icon-192.png" width=48 height=48 alt="" style="border-radius:12px"><div><b style="font-size:18px;letter-spacing:.6px;color:var(--g)">SADE HOUSE</b><br><small style="color:var(--mu)">Usimamizi wa kodi na wapangaji</small></div></div>' +
     '<h1>' + (up ? 'Fungua akaunti' : 'Karibu') + '</h1>' +
     '<p>' + (up ? 'Jisajili kwa barua pepe yako. Data yako ni yako peke yako; haichanganyiki na ya watumiaji wengine.' : 'Ingia ili data yako ihifadhiwe wingu na irejeshwe ukipoteza simu. Kila akaunti ina data yake peke yake.') + '</p>' +
